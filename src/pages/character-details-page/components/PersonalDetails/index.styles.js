@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Avatar } from '../../../search-page/components/WelcomeCharacters/index.styles'
 
 const Container = styled.div`
@@ -64,17 +64,29 @@ const Status = styled.div`
   margin-top: 5px;
 `
 
-const Red = styled.div`
+const Color = styled.div`
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: red;
-`
-const Green = styled(Red)`
-  background-color: #27db51;
-`
-const Grey = styled(Red)`
-  background-color: #c3c7c4;
+
+  ${({ red }) =>
+    red &&
+    css`
+      background-color: red;
+    `}
+ 
+
+  ${({ green }) =>
+    green &&
+    css`
+      background-color: #27db51;
+    `}
+
+  ${({ grey }) =>
+    grey &&
+    css`
+      background-color: #c3c7c4;
+    `}
 `
 
 const CurrentStatus = styled.div`
@@ -94,11 +106,18 @@ const LocationTitle = styled.div`
 const Place = styled.div`
   font-size: 18px;
   margin-top: 10px;
+  color: #fff;
 
   &:hover {
     cursor: pointer;
     color: #79b6f2;
   }
+
+  ${({ isDisabled }) =>
+    isDisabled &&
+    css`
+      pointer-events: none;
+    `}
 `
 
 export {
@@ -109,9 +128,7 @@ export {
   Header,
   Name,
   Status,
-  Red,
-  Green,
-  Grey,
+  Color,
   CurrentStatus,
   Location,
   LocationTitle,

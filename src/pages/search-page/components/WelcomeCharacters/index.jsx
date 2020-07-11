@@ -8,9 +8,25 @@ import {
   Loading,
 } from './index.styles'
 
+const generateRandomCharacters = () => {
+  let arrayOfCharacters = []
+
+  while (arrayOfCharacters.length !== 8) {
+    const random = Math.floor(Math.random() * (592 - 1) + 1)
+
+    if (!arrayOfCharacters.includes(random)) {
+      arrayOfCharacters.push(random)
+    }
+  }
+
+  return arrayOfCharacters
+}
+
 const fetchWelcomeCharacters = () => {
+  let generatedCharacters = generateRandomCharacters()
+
   return fetch(
-    'https://rickandmortyapi.com/api/character/1,2,3,4,55,124,332,590'
+    `https://rickandmortyapi.com/api/character/${generatedCharacters}`
   )
     .then((res) => res.json())
     .then((jsonResp) => jsonResp)

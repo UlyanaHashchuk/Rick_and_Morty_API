@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import {
   Container,
   Grid,
@@ -7,57 +7,51 @@ import {
   Header,
   Name,
   Status,
-  Red,
-  Green,
-  Grey,
+  Color,
   CurrentStatus,
   Location,
   LocationTitle,
   Place,
 } from './index.styles'
 
-const fetchById = (id) =>
-  fetch(`https://rickandmortyapi.com/api/character/${id}`)
-    .then((res) => res.json())
-    .then((jsonResp) => jsonResp)
-
-export default ({ id }) => {
-  const [singleCharacter, setSingleCharacter] = useState([])
-
-  useEffect(() => {
-    fetchById(id).then((res) => setSingleCharacter([res]))
-  }, [id])
-
-  return (
-    <Container>
-      {singleCharacter.map(
-        ({ id, image, name, status, species, origin, location }) => (
-          <Grid key={id}>
-            <SingleAvatar src={image} />
-            <Info>
-              <Header>
-                <Name>{name}</Name>
-                <Status>
-                  {status === 'Dead' && <Red />}
-                  {status === 'Alive' && <Green />}
-                  {status === 'unknown' && <Grey />}
-                  <CurrentStatus>
-                    {status} - {species}
-                  </CurrentStatus>
-                </Status>
-              </Header>
-              <Location>
-                <LocationTitle>Last known location:</LocationTitle>
-                <Place>{origin.name}</Place>
-              </Location>
-              <Location>
-                <LocationTitle>First seen in:</LocationTitle>
-                <Place>{location.name}</Place>
-              </Location>
-            </Info>
-          </Grid>
-        )
-      )}
-    </Container>
-  )
-}
+export default ({
+  singleCharacter: { id, image, name, status, species, origin, location },
+  onClickHandler,
+}) => (
+  <Container>
+    <Grid key={id}>
+      <SingleAvatar src={image} />
+      <Info>
+        <Header>
+          <Name>{name}</Name>
+          <Status>
+            {status === 'Dead' && <Color red />}
+            {status === 'Alive' && <Color green />}
+            {status === 'unknown' && <Color grey />}
+            <CurrentStatus>
+              {status} - {species}
+            </CurrentStatus>
+          </Status>
+        </Header>
+        <Location>
+          <LocationTitle>Last known location:</LocationTitle>
+          <Place
+            onClick={() => onClickHandler('origin')}
+            isDisabled={origin.name === 'unknown'}
+          >
+            {origin.name}
+          </Place>
+        </Location>
+        <Location>
+          <LocationTitle>First seen in:</LocationTitle>
+          <Place
+            onClick={() => onClickHandler('last')}
+            isDisabled={location.name === 'unknown'}
+          >
+            {location.name}
+          </Place>
+        </Location>
+      </Info>
+    </Grid>
+  </Container>
+)
