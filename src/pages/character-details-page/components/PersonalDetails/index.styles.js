@@ -9,28 +9,39 @@ const Container = styled.div`
 
 const Grid = styled.div`
   display: flex;
-  height: 250px;
-  width: 600px;
-  border-radius: 15px;
-  background-color: #40434a;
   color: #fff;
   word-wrap: wrap;
 
-  @media and screen (max-width: 600px) {
+  @media screen and (max-width: 600px) {
     flex-direction: column;
-    width: 250px;
   }
 `
 
 const SingleAvatar = styled(Avatar)`
   border-radius: 15px 0 0 15px;
+
+  @media screen and (max-width: 600px) {
+    border-radius: 15px 15px 0 0;
+    width: 300px;
+    height: 300px;
+  }
 `
 
 const Info = styled.div`
-  padding-left: 10px;
+  height: 250px;
+  width: 400px;
+  border-radius: 0 15px 15px 0;
+  background-color: #40434a;
+  padding-left: 15px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+
+  @media screen and (max-width: 600px) {
+    height: 250px;
+    width: 285px;
+    border-radius: 0 0 15px 15px;
+  }
 `
 
 const Header = styled.div`
@@ -40,7 +51,6 @@ const Header = styled.div`
 
 const Name = styled.div`
   font-size: 24px;
-  margin-top: -5px;
   font-weight: bold;
 
   &:hover {
@@ -84,6 +94,11 @@ const LocationTitle = styled.div`
 const Place = styled.div`
   font-size: 18px;
   margin-top: 10px;
+
+  &:hover {
+    cursor: pointer;
+    color: #79b6f2;
+  }
 `
 
 export {
