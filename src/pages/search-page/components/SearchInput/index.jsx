@@ -15,13 +15,15 @@ export default ({ onSubmit }) => {
       })
   }
 
+  const handleChange = ({ target: { value } }) => setCharacterName(value)
+
   return (
     <Form onSubmit={handleSubmit}>
       <Label>Enter Rick and Morty character name:</Label>
       <Input
         type="text"
         value={characterName}
-        onChange={({ target: { value } }) => setCharacterName(value)}
+        onChange={handleChange}
         placeholder="Character name..."
         required
       />

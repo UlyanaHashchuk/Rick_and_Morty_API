@@ -1,16 +1,14 @@
 import React, { useState } from 'react'
-import CharactersContext from '../../contexts/CharactersContext'
 import WelcomeCharacters from './components/WelcomeCharacters'
 import SearchInput from './components/SearchInput'
-import FilteredCharacters from './components/FilteredCharacters'
 
 export default () => {
-  const { characters, setCharaters } = React.useContext(CharactersContext)
-  const [whatToShow, setWhatToShow] = useState(false)
+  const [characters, setCharaters] = useState([])
+  const [hasSearchResults, setHasSearchResults] = useState(false)
 
   const getCharacters = (character) => {
     setCharaters(character)
-    setWhatToShow(true)
+    setHasSearchResults(true)
   }
 
   const { results = [] } = characters
@@ -18,11 +16,10 @@ export default () => {
   return (
     <>
       <SearchInput onSubmit={getCharacters} />
-      {whatToShow ? (
-        <FilteredCharacters results={results} />
-      ) : (
-        <WelcomeCharacters />
-      )}
+      <WelcomeCharacters
+        useRandomCharacters={!hasSearchResults}
+        customCharacters={results}
+      />
     </>
   )
 }

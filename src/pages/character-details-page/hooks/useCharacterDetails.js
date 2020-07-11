@@ -1,39 +1,48 @@
 import { useState, useEffect } from 'react'
 
-const fetchById = (id) =>
-  fetch(`https://rickandmortyapi.com/api/character/${id}`)
-    .then((res) => res.json())
-    .then((jsonResp) => jsonResp)
-
-const fetchByLocation = (url) =>
-  fetch(url)
-    .then((res) => res.json())
-    .then((jsonResp) => jsonResp)
+const fetchData = (url) =>
+  new Promise((resolve, reject) => {
+    fetch(url)
+      .then((res) => res.json())
+      .then((jsonResp) => {
+        if (!jsonResp.error) {
+          return resolve(jsonResp)
+        }
+        return reject()
+      })
+      .catch((error) => reject(error))
+  })
 
 export default ({ params }) => {
-  const [singleCharacter, setSingleCharacter] = useState(null)
-  const [showLocation, setShowLocation] = useState(null)
+  const [selectedCharacter, setSelectedCharacter] = useState(null)
+  const [locationType, setLocationType] = useState(null)
   const [locationDetails, setLocationDetails] = useState({})
   const { id } = params
 
   useEffect(() => {
-    fetchById(id).then((res) => setSingleCharacter(res))
+    fetchData(
+      `https://rickandmortyapi.com/api/character/${id}`
+    ).then((jsonResp) => setSelectedCharacter(jsonResp))
   }, [id])
 
   useEffect(() => {
-    if (singleCharacter && showLocation === 'origin') {
-      const {
-        origin: { url },
-      } = singleCharacter
-      fetchByLocation(url).then((res) => setLocationDetails(res))
-    }
-    if (singleCharacter && showLocation === 'last') {
-      const {
-        location: { url },
-      } = singleCharacter
-      fetchByLocation(url).then((res) => setLocationDetails(res))
-    }
-  }, [singleCharacter, showLocation])
+    if (selectedCharacter) {
+      let url
+      const { origin, location } = selectedCharacter
 
-  return { showLocation, singleCharacter, setShowLocation, locationDetails }
+      if (locationType === 'origin') {
+        url = origin.url
+      }
+
+      if (locationType === 'last') {
+        url = location.url
+      }
+
+      if (url) {
+        fetchData(url).then((res) => setLocationDetails(res))
+      }
+    }
+  }, [selectedCharacter, locationType])
+
+  return { locationType, selectedCharacter, setLocationType, locationDetails }
 }

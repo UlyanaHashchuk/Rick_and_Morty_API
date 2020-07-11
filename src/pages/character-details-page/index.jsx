@@ -5,22 +5,21 @@ import LocationDetails from './components/LocationDetails'
 
 export default ({ match: { params } }) => {
   const {
-    showLocation,
-    singleCharacter,
-    setShowLocation,
+    locationType,
+    selectedCharacter,
+    setLocationType,
     locationDetails,
   } = useCharacterDetails({ params })
 
   return (
     <>
-      {singleCharacter && (
+      {selectedCharacter && (
         <PersonalDetails
-          singleCharacter={singleCharacter}
-          onClickHandler={setShowLocation}
+          selectedCharacter={selectedCharacter}
+          onClickHandler={setLocationType}
         />
       )}
-
-      {showLocation && <LocationDetails locationDetails={locationDetails} />}
+      {locationType && <LocationDetails locationDetails={locationDetails} />}
     </>
   )
 }

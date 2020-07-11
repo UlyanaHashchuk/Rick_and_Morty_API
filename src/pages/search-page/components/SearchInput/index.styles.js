@@ -37,6 +37,7 @@ const Button = styled.button`
   &:hover {
     background-color: #4d92d6;
   }
+
   &:active {
     background-color: #3d6fa1;
     box-shadow: 0 2px #666;

@@ -15,7 +15,15 @@ import {
 } from './index.styles'
 
 export default ({
-  singleCharacter: { id, image, name, status, species, origin, location },
+  selectedCharacter: {
+    id,
+    image,
+    name,
+    status,
+    species,
+    origin: { name: originName },
+    location: { name: locationName },
+  },
   onClickHandler,
 }) => (
   <Container>
@@ -37,18 +45,18 @@ export default ({
           <LocationTitle>Last known location:</LocationTitle>
           <Place
             onClick={() => onClickHandler('origin')}
-            isDisabled={origin.name === 'unknown'}
+            isDisabled={originName === 'unknown'}
           >
-            {origin.name}
+            {originName}
           </Place>
         </Location>
         <Location>
           <LocationTitle>First seen in:</LocationTitle>
           <Place
             onClick={() => onClickHandler('last')}
-            isDisabled={location.name === 'unknown'}
+            isDisabled={locationName === 'unknown'}
           >
-            {location.name}
+            {locationName}
           </Place>
         </Location>
       </Info>

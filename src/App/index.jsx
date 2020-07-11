@@ -17,7 +17,7 @@ export default () => {
         <Router>
           <Switch>
             <Route exact path="/:id" component={CharacterDetails} />
-            <Route path="/">
+            <Route exact path="/">
               <SearchPage />
             </Route>
           </Switch>
