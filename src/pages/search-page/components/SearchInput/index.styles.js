@@ -11,6 +11,7 @@ const Label = styled.label`
   font-size: 20px;
   margin: 25px;
   border-bottom: 1px solid #ccc;
+  text-align: center;
 `
 
 const Input = styled.input`

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import {
   Container,
   Grid,
@@ -13,7 +14,9 @@ export default ({ results }) => {
       <Grid>
         {results.map(({ id, name, image }) => (
           <Character key={id}>
-            <Avatar src={image} />
+            <Link to={`/${id}`}>
+              <Avatar src={image} />
+            </Link>
             <Name>{name}</Name>
           </Character>
         ))}
