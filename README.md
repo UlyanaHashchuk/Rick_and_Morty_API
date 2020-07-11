@@ -13,3 +13,19 @@
    - You can see `name`, `status`, first and last `locations`.
    - Click on `location` to see more details about it.
    - If `location` is unknown click will be disabled.
+
+## How to start?
+
+1. Install dependencies:
+
+```sh
+  yarn
+```
+
+2. Run application
+
+```sh
+yarn start
+```
+
+Application is running on `http://localhost:3000`
