@@ -14,6 +14,8 @@
    - Click on the `location` to see more details about it.
    - If `location` is unknown click will be disabled.
 
+To go back to `first page` click the left top name Rick and Morty API.
+
 ## How to start?
 
 1. Install dependencies:
