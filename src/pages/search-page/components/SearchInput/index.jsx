@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { fetchData } from '../../../../utils/fetchData'
 import { Form, Label, Input, Button } from './index.styles'
 
 export default ({ onSubmit }) => {
@@ -7,12 +8,12 @@ export default ({ onSubmit }) => {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    fetch(`https://rickandmortyapi.com/api/character/?name=${characterName}`)
-      .then((res) => res.json())
-      .then((jsonResp) => {
-        onSubmit(jsonResp)
-        setCharacterName('')
-      })
+    fetchData(
+      `https://rickandmortyapi.com/api/character/?name=${characterName}`
+    ).then((jsonResp) => {
+      onSubmit(jsonResp)
+      setCharacterName('')
+    })
   }
 
   const handleChange = ({ target: { value } }) => setCharacterName(value)

@@ -15,6 +15,10 @@ const Grid = styled.div`
 
 const Character = styled.div`
   margin: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  word-wrap: wrap;
 `
 
 const Avatar = styled.img`
@@ -25,7 +29,6 @@ const Avatar = styled.img`
 
 const Name = styled.div`
   margin: 5px 0;
-  text-align: center;
   color: #fff;
   font-size: 20px;
 `

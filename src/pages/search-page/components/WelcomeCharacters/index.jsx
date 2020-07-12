@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { fetchData } from '../../../../utils/fetchData'
 import {
   Container,
   Grid,
@@ -28,23 +29,17 @@ const generateRandomCharacters = (randomCharactersAmount = 8) => {
   return arrayOfCharacters
 }
 
-const fetchRandomCharacters = () => {
-  let generatedCharacters = generateRandomCharacters()
-
-  return fetch(
-    `https://rickandmortyapi.com/api/character/${generatedCharacters}`
-  )
-    .then((res) => res.json())
-    .then((jsonResp) => jsonResp)
-}
-
 export default ({ useRandomCharacters = true, customCharacters = [] }) => {
   const [characters, setCharacters] = useState(customCharacters)
   const [isLoading, setIsLoading] = useState(true)
 
+  let generatedCharacters = generateRandomCharacters()
+
   useEffect(() => {
     if (useRandomCharacters) {
-      fetchRandomCharacters().then((character) => {
+      fetchData(
+        `https://rickandmortyapi.com/api/character/${generatedCharacters}`
+      ).then((character) => {
         setCharacters(character)
         setIsLoading(false)
       })

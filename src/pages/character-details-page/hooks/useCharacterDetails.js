@@ -1,23 +1,10 @@
 import { useState, useEffect } from 'react'
+import { fetchData } from '../../../utils/fetchData'
 
-const fetchData = (url) =>
-  new Promise((resolve, reject) => {
-    fetch(url)
-      .then((res) => res.json())
-      .then((jsonResp) => {
-        if (!jsonResp.error) {
-          return resolve(jsonResp)
-        }
-        return reject()
-      })
-      .catch((error) => reject(error))
-  })
-
-export default ({ params }) => {
+export default ({ params: { id } }) => {
   const [selectedCharacter, setSelectedCharacter] = useState(null)
   const [locationType, setLocationType] = useState(null)
   const [locationDetails, setLocationDetails] = useState({})
-  const { id } = params
 
   useEffect(() => {
     fetchData(
